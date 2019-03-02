@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.chenlin.dp.modules.sc.dao.ScProviderMapper">
+	
+	<select id="listForPage" resultType="net.chenlin.dp.modules.sc.entity.ScProviderEntity">
+		SELECT
+			`Id`, 
+			`ProviderId`, 
+			`ProviderType`, 
+			`ProviderName`, 
+			`JoinDate`, 
+			`Address`, 
+			`Province`, 
+			`City`, 
+			`Area`, 
+			`Legal`, 
+			`Telephone`, 
+			`WechatId`, 
+			`OpenId`, 
+			`CitizenId`, 
+			`Email`, 
+			`Bank`, 
+			`AccountName`, 
+			`Account`, 
+			`Enable`, 
+			`Remark`
+		FROM
+			sc_provider
+		ORDER BY
+			Id DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO sc_provider (
+			`ProviderId`, 
+			`ProviderType`, 
+			`ProviderName`, 
+			`JoinDate`, 
+			`Address`, 
+			`Province`, 
+			`City`, 
+			`Area`, 
+			`Legal`, 
+			`Telephone`, 
+			`WechatId`, 
+			`OpenId`, 
+			`CitizenId`, 
+			`Email`, 
+			`Bank`, 
+			`AccountName`, 
+			`Account`, 
+			`Enable`, 
+			`Remark`
+		)
+		VALUES (
+			#{providerid}, 
+			#{providertype}, 
+			#{providername}, 
+			#{joindate}, 
+			#{address}, 
+			#{province}, 
+			#{city}, 
+			#{area}, 
+			#{legal}, 
+			#{telephone}, 
+			#{wechatid}, 
+			#{openid}, 
+			#{citizenid}, 
+			#{email}, 
+			#{bank}, 
+			#{accountname}, 
+			#{account}, 
+			#{enable}, 
+			#{remark}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="net.chenlin.dp.modules.sc.entity.ScProviderEntity">
+		SELECT
+			`Id`, 
+			`ProviderId`, 
+			`ProviderType`, 
+			`ProviderName`, 
+			`JoinDate`, 
+			`Address`, 
+			`Province`, 
+			`City`, 
+			`Area`, 
+			`Legal`, 
+			`Telephone`, 
+			`WechatId`, 
+			`OpenId`, 
+			`CitizenId`, 
+			`Email`, 
+			`Bank`, 
+			`AccountName`, 
+			`Account`, 
+			`Enable`, 
+			`Remark`
+		FROM
+			sc_provider
+		WHERE
+			Id = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE sc_provider
+	 	<set>
+			<if test="providerid != null">`ProviderId` = #{providerid}, </if>
+			<if test="providertype != null">`ProviderType` = #{providertype}, </if>
+			<if test="providername != null">`ProviderName` = #{providername}, </if>
+			<if test="joindate != null">`JoinDate` = #{joindate}, </if>
+			<if test="address != null">`Address` = #{address}, </if>
+			<if test="province != null">`Province` = #{province}, </if>
+			<if test="city != null">`City` = #{city}, </if>
+			<if test="area != null">`Area` = #{area}, </if>
+			<if test="legal != null">`Legal` = #{legal}, </if>
+			<if test="telephone != null">`Telephone` = #{telephone}, </if>
+			<if test="wechatid != null">`WechatId` = #{wechatid}, </if>
+			<if test="openid != null">`OpenId` = #{openid}, </if>
+			<if test="citizenid != null">`CitizenId` = #{citizenid}, </if>
+			<if test="email != null">`Email` = #{email}, </if>
+			<if test="bank != null">`Bank` = #{bank}, </if>
+			<if test="accountname != null">`AccountName` = #{accountname}, </if>
+			<if test="account != null">`Account` = #{account}, </if>
+			<if test="enable != null">`Enable` = #{enable}, </if>
+			<if test="remark != null">`Remark` = #{remark}</if>
+		</set>
+		WHERE
+			Id = #{id}
+	</update>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			sc_provider
+		WHERE
+			Id IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

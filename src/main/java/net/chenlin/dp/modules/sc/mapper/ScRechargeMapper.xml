@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.chenlin.dp.modules.sc.dao.ScRechargeMapper">
+	
+	<select id="listForPage" resultType="net.chenlin.dp.modules.sc.entity.ScRechargeEntity">
+		SELECT
+			`RechargeId`, 
+			`UserId`, 
+			`RechargeDate`, 
+			`Amount`, 
+			`Mode`, 
+			`TransactionId`, 
+			`TimeEnd`
+		FROM
+			sc_recharge
+		ORDER BY
+			RechargeId DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO sc_recharge (
+			`UserId`, 
+			`RechargeDate`, 
+			`Amount`, 
+			`Mode`, 
+			`TransactionId`, 
+			`TimeEnd`
+		)
+		VALUES (
+			#{userid}, 
+			#{rechargedate}, 
+			#{amount}, 
+			#{mode}, 
+			#{transactionid}, 
+			#{timeend}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="net.chenlin.dp.modules.sc.entity.ScRechargeEntity">
+		SELECT
+			`RechargeId`, 
+			`UserId`, 
+			`RechargeDate`, 
+			`Amount`, 
+			`Mode`, 
+			`TransactionId`, 
+			`TimeEnd`
+		FROM
+			sc_recharge
+		WHERE
+			RechargeId = #{rechargeid}
+	</select>
+	
+	<update id="update">
+		UPDATE sc_recharge
+	 	<set>
+			<if test="userid != null">`UserId` = #{userid}, </if>
+			<if test="rechargedate != null">`RechargeDate` = #{rechargedate}, </if>
+			<if test="amount != null">`Amount` = #{amount}, </if>
+			<if test="mode != null">`Mode` = #{mode}, </if>
+			<if test="transactionid != null">`TransactionId` = #{transactionid}, </if>
+			<if test="timeend != null">`TimeEnd` = #{timeend}</if>
+		</set>
+		WHERE
+			RechargeId = #{rechargeid}
+	</update>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			sc_recharge
+		WHERE
+			RechargeId IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

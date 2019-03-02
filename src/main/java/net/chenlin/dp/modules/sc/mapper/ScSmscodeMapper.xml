@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.chenlin.dp.modules.sc.dao.ScSmscodeMapper">
+	
+	<select id="listForPage" resultType="net.chenlin.dp.modules.sc.entity.ScSmscodeEntity">
+		SELECT
+			`PhoneNum`, 
+			`SmsCode`, 
+			`CreatTime`
+		FROM
+			sc_smscode
+		ORDER BY
+			PhoneNum DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO sc_smscode (
+			`PhoneNum`, 
+			`SmsCode`, 
+			`CreatTime`
+		)
+		VALUES (
+			#{phonenum}, 
+			#{smscode}, 
+			#{creattime}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="net.chenlin.dp.modules.sc.entity.ScSmscodeEntity">
+		SELECT
+			`PhoneNum`, 
+			`SmsCode`, 
+			`CreatTime`
+		FROM
+			sc_smscode
+		WHERE
+			PhoneNum = #{phonenum}
+	</select>
+	
+	<update id="update">
+		UPDATE sc_smscode
+	 	<set>
+			<if test="smscode != null">`SmsCode` = #{smscode}, </if>
+			<if test="creattime != null">`CreatTime` = #{creattime}</if>
+		</set>
+		WHERE
+			PhoneNum = #{phonenum}
+	</update>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			sc_smscode
+		WHERE
+			PhoneNum IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.chenlin.dp.modules.sc.dao.ScPriceMapper">
+	
+	<select id="listForPage" resultType="net.chenlin.dp.modules.sc.entity.ScPriceEntity">
+		SELECT
+			`PriceMode`, 
+			`Range`, 
+			`PowerFrom`, 
+			`PowerTo`, 
+			`Price`
+		FROM
+			sc_price
+		ORDER BY
+			PriceMode DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO sc_price (
+			`PriceMode`, 
+			`Range`, 
+			`PowerFrom`, 
+			`PowerTo`, 
+			`Price`
+		)
+		VALUES (
+			#{pricemode}, 
+			#{range}, 
+			#{powerfrom}, 
+			#{powerto}, 
+			#{price}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="net.chenlin.dp.modules.sc.entity.ScPriceEntity">
+		SELECT
+			`PriceMode`, 
+			`Range`, 
+			`PowerFrom`, 
+			`PowerTo`, 
+			`Price`
+		FROM
+			sc_price
+		WHERE
+			PriceMode = #{pricemode}
+	</select>
+	
+	<update id="update">
+		UPDATE sc_price
+	 	<set>
+			<if test="range != null">`Range` = #{range}, </if>
+			<if test="powerfrom != null">`PowerFrom` = #{powerfrom}, </if>
+			<if test="powerto != null">`PowerTo` = #{powerto}, </if>
+			<if test="price != null">`Price` = #{price}</if>
+		</set>
+		WHERE
+			PriceMode = #{pricemode}
+	</update>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			sc_price
+		WHERE
+			PriceMode IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

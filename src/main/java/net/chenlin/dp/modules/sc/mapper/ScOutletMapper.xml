@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.chenlin.dp.modules.sc.dao.ScOutletMapper">
+	
+	<select id="listForPage" resultType="net.chenlin.dp.modules.sc.entity.ScOutletEntity">
+		SELECT
+			`OutletId`, 
+			`ProviderId`, 
+			`OutletName`, 
+			`TypeId`, 
+			`Price`, 
+			`Province`, 
+			`City`, 
+			`AreaID`, 
+			`ServerId`, 
+			`InstallationSite`, 
+			`Longitude`, 
+			`Latitude`, 
+			`SerialNumber`, 
+			`PriceMode`, 
+			`Describe`, 
+			`IP`, 
+			`SerialNum`, 
+			`Session`, 
+			`AppKey`, 
+			`IsOnline`, 
+			`SignalQuality`, 
+			`Enable`, 
+			`Version`, 
+			`ICCID`, 
+			`EnableDate`, 
+			`RecoverDate`, 
+			`ElectricityPrice`, 
+			`DistributionMode`
+		FROM
+			sc_outlet
+		ORDER BY
+			OutletId DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO sc_outlet (
+			`OutletId`, 
+			`ProviderId`, 
+			`OutletName`, 
+			`TypeId`, 
+			`Price`, 
+			`Province`, 
+			`City`, 
+			`AreaID`, 
+			`ServerId`, 
+			`InstallationSite`, 
+			`Longitude`, 
+			`Latitude`, 
+			`SerialNumber`, 
+			`PriceMode`, 
+			`Describe`, 
+			`IP`, 
+			`SerialNum`, 
+			`Session`, 
+			`AppKey`, 
+			`IsOnline`, 
+			`SignalQuality`, 
+			`Enable`, 
+			`Version`, 
+			`ICCID`, 
+			`EnableDate`, 
+			`RecoverDate`, 
+			`ElectricityPrice`, 
+			`DistributionMode`
+		)
+		VALUES (
+			#{outletid}, 
+			#{providerid}, 
+			#{outletname}, 
+			#{typeid}, 
+			#{price}, 
+			#{province}, 
+			#{city}, 
+			#{areaid}, 
+			#{serverid}, 
+			#{installationsite}, 
+			#{longitude}, 
+			#{latitude}, 
+			#{serialnumber}, 
+			#{pricemode}, 
+			#{describe}, 
+			#{ip}, 
+			#{serialnum}, 
+			#{session}, 
+			#{appkey}, 
+			#{isonline}, 
+			#{signalquality}, 
+			#{enable}, 
+			#{version}, 
+			#{iccid}, 
+			#{enabledate}, 
+			#{recoverdate}, 
+			#{electricityprice}, 
+			#{distributionmode}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="net.chenlin.dp.modules.sc.entity.ScOutletEntity">
+		SELECT
+			`OutletId`, 
+			`ProviderId`, 
+			`OutletName`, 
+			`TypeId`, 
+			`Price`, 
+			`Province`, 
+			`City`, 
+			`AreaID`, 
+			`ServerId`, 
+			`InstallationSite`, 
+			`Longitude`, 
+			`Latitude`, 
+			`SerialNumber`, 
+			`PriceMode`, 
+			`Describe`, 
+			`IP`, 
+			`SerialNum`, 
+			`Session`, 
+			`AppKey`, 
+			`IsOnline`, 
+			`SignalQuality`, 
+			`Enable`, 
+			`Version`, 
+			`ICCID`, 
+			`EnableDate`, 
+			`RecoverDate`, 
+			`ElectricityPrice`, 
+			`DistributionMode`
+		FROM
+			sc_outlet
+		WHERE
+			OutletId = #{outletid}
+	</select>
+	
+	<update id="update">
+		UPDATE sc_outlet
+	 	<set>
+			<if test="providerid != null">`ProviderId` = #{providerid}, </if>
+			<if test="outletname != null">`OutletName` = #{outletname}, </if>
+			<if test="typeid != null">`TypeId` = #{typeid}, </if>
+			<if test="price != null">`Price` = #{price}, </if>
+			<if test="province != null">`Province` = #{province}, </if>
+			<if test="city != null">`City` = #{city}, </if>
+			<if test="areaid != null">`AreaID` = #{areaid}, </if>
+			<if test="serverid != null">`ServerId` = #{serverid}, </if>
+			<if test="installationsite != null">`InstallationSite` = #{installationsite}, </if>
+			<if test="longitude != null">`Longitude` = #{longitude}, </if>
+			<if test="latitude != null">`Latitude` = #{latitude}, </if>
+			<if test="serialnumber != null">`SerialNumber` = #{serialnumber}, </if>
+			<if test="pricemode != null">`PriceMode` = #{pricemode}, </if>
+			<if test="describe != null">`Describe` = #{describe}, </if>
+			<if test="ip != null">`IP` = #{ip}, </if>
+			<if test="serialnum != null">`SerialNum` = #{serialnum}, </if>
+			<if test="session != null">`Session` = #{session}, </if>
+			<if test="appkey != null">`AppKey` = #{appkey}, </if>
+			<if test="isonline != null">`IsOnline` = #{isonline}, </if>
+			<if test="signalquality != null">`SignalQuality` = #{signalquality}, </if>
+			<if test="enable != null">`Enable` = #{enable}, </if>
+			<if test="version != null">`Version` = #{version}, </if>
+			<if test="iccid != null">`ICCID` = #{iccid}, </if>
+			<if test="enabledate != null">`EnableDate` = #{enabledate}, </if>
+			<if test="recoverdate != null">`RecoverDate` = #{recoverdate}, </if>
+			<if test="electricityprice != null">`ElectricityPrice` = #{electricityprice}, </if>
+			<if test="distributionmode != null">`DistributionMode` = #{distributionmode}</if>
+		</set>
+		WHERE
+			OutletId = #{outletid}
+	</update>
+	
+	<update id="batchRemove">
+		UPDATE sc_outlet
+		set
+			enable = 0
+		WHERE
+			OutletId IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</update>
+
+</mapper>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.chenlin.dp.modules.sc.dao.ScUploadMapper">
+	
+	<select id="listForPage" resultType="net.chenlin.dp.modules.sc.entity.ScUploadEntity">
+		SELECT
+			`UploadId`, 
+			`OutletId`, 
+			`SerialId`, 
+			`ChargeId`, 
+			`UploadDate`, 
+			`Votage`, 
+			`Current`, 
+			`Power`, 
+			`ChargeTime`, 
+			`RemainTime`, 
+			`PriceMode`, 
+			`RealCost`
+		FROM
+			sc_upload
+		ORDER BY
+			UploadId DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO sc_upload (
+			`OutletId`, 
+			`SerialId`, 
+			`ChargeId`, 
+			`UploadDate`, 
+			`Votage`, 
+			`Current`, 
+			`Power`, 
+			`ChargeTime`, 
+			`RemainTime`, 
+			`PriceMode`, 
+			`RealCost`
+		)
+		VALUES (
+			#{outletid}, 
+			#{serialid}, 
+			#{chargeid}, 
+			#{uploaddate}, 
+			#{votage}, 
+			#{current}, 
+			#{power}, 
+			#{chargetime}, 
+			#{remaintime}, 
+			#{pricemode}, 
+			#{realcost}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="net.chenlin.dp.modules.sc.entity.ScUploadEntity">
+		SELECT
+			`UploadId`, 
+			`OutletId`, 
+			`SerialId`, 
+			`ChargeId`, 
+			`UploadDate`, 
+			`Votage`, 
+			`Current`, 
+			`Power`, 
+			`ChargeTime`, 
+			`RemainTime`, 
+			`PriceMode`, 
+			`RealCost`
+		FROM
+			sc_upload
+		WHERE
+			UploadId = #{uploadid}
+	</select>
+	
+	<update id="update">
+		UPDATE sc_upload
+	 	<set>
+			<if test="outletid != null">`OutletId` = #{outletid}, </if>
+			<if test="serialid != null">`SerialId` = #{serialid}, </if>
+			<if test="chargeid != null">`ChargeId` = #{chargeid}, </if>
+			<if test="uploaddate != null">`UploadDate` = #{uploaddate}, </if>
+			<if test="votage != null">`Votage` = #{votage}, </if>
+			<if test="current != null">`Current` = #{current}, </if>
+			<if test="power != null">`Power` = #{power}, </if>
+			<if test="chargetime != null">`ChargeTime` = #{chargetime}, </if>
+			<if test="remaintime != null">`RemainTime` = #{remaintime}, </if>
+			<if test="pricemode != null">`PriceMode` = #{pricemode}, </if>
+			<if test="realcost != null">`RealCost` = #{realcost}</if>
+		</set>
+		WHERE
+			UploadId = #{uploadid}
+	</update>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			sc_upload
+		WHERE
+			UploadId IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

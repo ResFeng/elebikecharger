@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.chenlin.dp.modules.sc.dao.ScOutlettypeMapper">
+	
+	<select id="listForPage" resultType="net.chenlin.dp.modules.sc.entity.ScOutlettypeEntity">
+		SELECT
+			`TypeId`, 
+			`TypeName`, 
+			`Description`, 
+			`Image`
+		FROM
+			sc_outlettype
+		ORDER BY
+			TypeId DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO sc_outlettype (
+			`TypeId`, 
+			`TypeName`, 
+			`Description`, 
+			`Image`
+		)
+		VALUES (
+			#{typeid}, 
+			#{typename}, 
+			#{description}, 
+			#{image}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="net.chenlin.dp.modules.sc.entity.ScOutlettypeEntity">
+		SELECT
+			`TypeId`, 
+			`TypeName`, 
+			`Description`, 
+			`Image`
+		FROM
+			sc_outlettype
+		WHERE
+			TypeId = #{typeid}
+	</select>
+	
+	<update id="update">
+		UPDATE sc_outlettype
+	 	<set>
+			<if test="typename != null">`TypeName` = #{typename}, </if>
+			<if test="description != null">`Description` = #{description}, </if>
+			<if test="image != null">`Image` = #{image}</if>
+		</set>
+		WHERE
+			TypeId = #{typeid}
+	</update>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			sc_outlettype
+		WHERE
+			TypeId IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

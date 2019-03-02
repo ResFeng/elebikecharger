@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.chenlin.dp.modules.sc.dao.ScChargeMapper">
+	
+	<select id="listForPage" resultType="net.chenlin.dp.modules.sc.entity.ScChargeEntity">
+		SELECT
+			`ChargeId`, 
+			`UserId`, 
+			`OutletId`, 
+			`SerialId`, 
+			`ChargeDate`, 
+			`Mode`, 
+			`CurrentStatus`, 
+			`SettingTime`, 
+			`ChargeTime`, 
+			`RemainTime`, 
+			`RealCost`, 
+			`Payment`, 
+			`StopType`, 
+			`EndDate`, 
+			`Status`, 
+			`HaveLooked`
+		FROM
+			sc_charge
+		ORDER BY
+			ChargeId DESC
+	</select>
+	
+	<insert id="save">
+		INSERT INTO sc_charge (
+			`UserId`, 
+			`OutletId`, 
+			`SerialId`, 
+			`ChargeDate`, 
+			`Mode`, 
+			`CurrentStatus`, 
+			`SettingTime`, 
+			`ChargeTime`, 
+			`RemainTime`, 
+			`RealCost`, 
+			`Payment`, 
+			`StopType`, 
+			`EndDate`, 
+			`Status`, 
+			`HaveLooked`
+		)
+		VALUES (
+			#{userid}, 
+			#{outletid}, 
+			#{serialid}, 
+			#{chargedate}, 
+			#{mode}, 
+			#{currentstatus}, 
+			#{settingtime}, 
+			#{chargetime}, 
+			#{remaintime}, 
+			#{realcost}, 
+			#{payment}, 
+			#{stoptype}, 
+			#{enddate}, 
+			#{status}, 
+			#{havelooked}
+		)
+	</insert>
+	
+	<select id="getObjectById" resultType="net.chenlin.dp.modules.sc.entity.ScChargeEntity">
+		SELECT
+			`ChargeId`, 
+			`UserId`, 
+			`OutletId`, 
+			`SerialId`, 
+			`ChargeDate`, 
+			`Mode`, 
+			`CurrentStatus`, 
+			`SettingTime`, 
+			`ChargeTime`, 
+			`RemainTime`, 
+			`RealCost`, 
+			`Payment`, 
+			`StopType`, 
+			`EndDate`, 
+			`Status`, 
+			`HaveLooked`
+		FROM
+			sc_charge
+		WHERE
+			ChargeId = #{chargeid}
+	</select>
+	
+	<update id="update">
+		UPDATE sc_charge
+	 	<set>
+			<if test="userid != null">`UserId` = #{userid}, </if>
+			<if test="outletid != null">`OutletId` = #{outletid}, </if>
+			<if test="serialid != null">`SerialId` = #{serialid}, </if>
+			<if test="chargedate != null">`ChargeDate` = #{chargedate}, </if>
+			<if test="mode != null">`Mode` = #{mode}, </if>
+			<if test="currentstatus != null">`CurrentStatus` = #{currentstatus}, </if>
+			<if test="settingtime != null">`SettingTime` = #{settingtime}, </if>
+			<if test="chargetime != null">`ChargeTime` = #{chargetime}, </if>
+			<if test="remaintime != null">`RemainTime` = #{remaintime}, </if>
+			<if test="realcost != null">`RealCost` = #{realcost}, </if>
+			<if test="payment != null">`Payment` = #{payment}, </if>
+			<if test="stoptype != null">`StopType` = #{stoptype}, </if>
+			<if test="enddate != null">`EndDate` = #{enddate}, </if>
+			<if test="status != null">`Status` = #{status}, </if>
+			<if test="havelooked != null">`HaveLooked` = #{havelooked}</if>
+		</set>
+		WHERE
+			ChargeId = #{chargeid}
+	</update>
+	
+	<delete id="batchRemove">
+		DELETE
+		FROM
+			sc_charge
+		WHERE
+			ChargeId IN
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
