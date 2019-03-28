@@ -1,7 +1,12 @@
 package net.chenlin.dp.modules.sc.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import net.chenlin.dp.modules.sc.dao.ScProviderMapper;
+import net.chenlin.dp.modules.sys.dao.SysUserMapper;
+import net.chenlin.dp.modules.sys.dao.SysUserRoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +29,12 @@ public class ScProviderController extends AbstractController {
 	
 	@Autowired
 	private ScProviderService scProviderService;
+	@Autowired
+	private SysUserRoleMapper sysUserRoleMapper;
+	@Autowired
+	private SysUserMapper sysUserMapper;
+	@Autowired
+	private ScProviderMapper scProviderMapper;
 	
 	/**
 	 * 列表
@@ -33,6 +44,26 @@ public class ScProviderController extends AbstractController {
 	@RequestMapping("/list")
 	public Page<ScProviderEntity> list(@RequestBody Map<String, Object> params) {
 		return scProviderService.listScProvider(params);
+	}
+
+	/**
+	 * 列出所有
+	 * @return
+	 */
+	@RequestMapping("/listAll")
+	public List<ScProviderEntity> listAll(){
+		Long roleId = sysUserRoleMapper.listUserRoleId(getUserId());
+		if(roleId != 1){
+			List<ScProviderEntity> scProviderEntities = new ArrayList<>();
+			String providerId = sysUserMapper.getObjectById(getUserId()).getProviderId();
+			ScProviderEntity scProviderEntity = new ScProviderEntity();
+			scProviderEntity.setProviderid(providerId);
+			scProviderEntity.setProvidername(scProviderMapper.getProviderName(providerId));
+			scProviderEntities.add(scProviderEntity);
+			return scProviderEntities;
+		}else{
+			return scProviderService.listAll();
+		}
 	}
 		
 	/**
@@ -52,9 +83,19 @@ public class ScProviderController extends AbstractController {
 	 * @return
 	 */
 	@RequestMapping("/info")
-	public R getById(@RequestBody Long id) {
+	public R getById(@RequestBody Object id) {
 		return scProviderService.getScProviderById(id);
 	}
+
+//	/**
+//	 * 根据providerId查询详情
+//	 * @param id
+//	 * @return
+//	 */
+//	@RequestMapping("/info")
+//	public R getProviderByProviderId(@RequestBody String id) {
+//		return scProviderService.getProviderByProviderId(id);
+//	}
 	
 	/**
 	 * 修改

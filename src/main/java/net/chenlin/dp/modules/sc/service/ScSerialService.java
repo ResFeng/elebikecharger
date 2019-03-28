@@ -20,6 +20,20 @@ public interface ScSerialService {
 	Page<ScSerialEntity> listScSerial(Map<String, Object> params);
 
     /**
+     * 根据outletid列出
+     * @param params
+     * @return
+     */
+    Page<ScSerialEntity> listByOutletId(Map<String, Object> params);
+
+    /**
+     * 列出正在充电的端口
+     * @param params
+     * @return
+     */
+    Page<ScSerialEntity> listChargingSerial(Map<String, Object> params);
+
+    /**
      * 新增
      * @param scSerial
      * @return

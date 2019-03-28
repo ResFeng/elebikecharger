@@ -1,5 +1,6 @@
 package net.chenlin.dp.modules.sc.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,16 @@ public class ScChargeServiceImpl implements ScChargeService {
 		Page<ScChargeEntity> page = new Page<>(query);
 		scChargeMapper.listForPage(page, query);
 		return page;
+	}
+
+	/**
+	 * 获取端口使用统计
+	 * @param params
+	 * @return
+	 */
+	@Override
+	public List<ScChargeEntity> getSerialReport(Map<String, Object> params){
+		return scChargeMapper.getSerialReport(params);
 	}
 
     /**

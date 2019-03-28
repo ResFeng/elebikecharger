@@ -48,6 +48,31 @@ public class ScChargeprofitEntity implements Serializable {
 	 * 
 	 */
 	private BigDecimal distprofits;
+
+	/**
+	 *
+	 */
+	private String providerName;
+
+	/**
+	 *
+	 */
+	private String providerId;
+
+	/**
+	 *
+	 */
+	private String outletName;
+
+	/**
+	 *
+	 */
+	private int serialNum;
+
+	/**
+	 *
+	 */
+	private float chargeTime;
 	
     /**
      * ScChargeprofitEntity constructor
@@ -161,7 +186,47 @@ public class ScChargeprofitEntity implements Serializable {
 		return distprofits;
 	}
 
-    /**
+	public String getProviderName() {
+		return providerName;
+	}
+
+	public void setProviderName(String providerName) {
+		this.providerName = providerName;
+	}
+
+	public String getProviderId() {
+		return providerId;
+	}
+
+	public void setProviderId(String providerId) {
+		this.providerId = providerId;
+	}
+
+	public String getOutletName() {
+		return outletName;
+	}
+
+	public void setOutletName(String outletName) {
+		this.outletName = outletName;
+	}
+
+	public float getChargeTime() {
+		return chargeTime;
+	}
+
+	public void setChargeTime(float chargeTime) {
+		this.chargeTime = chargeTime;
+	}
+
+	public int getSerialNum() {
+		return serialNum;
+	}
+
+	public void setSerialNum(int serialNum) {
+		this.serialNum = serialNum;
+	}
+
+	/**
      * ScChargeprofitEntity.toString()
      */
     @Override

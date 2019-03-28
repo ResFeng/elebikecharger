@@ -5,17 +5,159 @@
 	
 	<select id="listForPage" resultType="net.chenlin.dp.modules.sc.entity.ScChargeprofitEntity">
 		SELECT
-			`Id`, 
-			`ChargeDate`, 
-			`OutletId`, 
+			(
+				SELECT
+				o.outletname
+				FROM
+				sc_outlet o
+				WHERE
+				o.outletid = cp.outletid
+			) as outletName,
 			`Profits`, 
 			`ChargeNum`, 
 			`PowerConsumption`, 
 			`DistProfits`
 		FROM
-			sc_chargeprofit
+			sc_chargeprofit cp
+		WHERE
+			cp.outletid IN(
+				SELECT
+				outletId
+				FROM
+				sc_outlet
+				WHERE
+				providerId = #{providerId}
+			)
+		AND
+			cp.chargedate = #{chargeDate}
 		ORDER BY
 			Id DESC
+	</select>
+
+	<select id="getProfit" resultType="net.chenlin.dp.modules.sc.entity.ScChargeprofitEntity">
+		SELECT
+			(
+				SELECT
+					p.providername
+				FROM
+					sc_provider p
+				WHERE
+					ProviderId = #{providerId}
+			) as providerName,
+			#{providerId} as providerId,
+			cp.ChargeDate,
+			sum(cp.Profits) Profits,
+			sum(cp.ChargeNum) ChargeNum,
+			sum(cp.PowerConsumption) PowerConsumption,
+			sum(cp.DistProfits) DistProfits
+		FROM
+			sc_chargeprofit cp
+		<where>
+			cp.outletId IN (
+				SELECT
+					outletId
+				FROM
+					sc_outlet
+				WHERE
+					ProviderId = #{providerId}
+			)
+			<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+				AND DATE_FORMAT( ChargeDate, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+			</if>
+		</where>
+		GROUP BY cp.ChargeDate
+	</select>
+
+	<select id="listProfit" resultType="net.chenlin.dp.modules.sc.entity.ScChargeprofitEntity">
+		SELECT
+		(
+			SELECT
+			providername
+			FROM
+			sc_provider p
+			WHERE
+			p.providerId = (
+				SELECT
+				providerid
+				FROM
+				sc_outlet o
+				WHERE
+				o.outletid = cp.outletid
+			)
+		) as providerName,
+		(
+			SELECT
+			providerid
+			FROM
+			sc_outlet o
+			WHERE
+			o.outletid = cp.outletid
+		) as providerId,
+		cp.ChargeDate,
+		sum(cp.Profits) Profits,
+		sum(cp.ChargeNum) ChargeNum,
+		sum(cp.PowerConsumption) PowerConsumption,
+		sum(cp.DistProfits) DistProfits
+		FROM
+		sc_chargeprofit cp
+		<where>
+			<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+				AND DATE_FORMAT( ChargeDate, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+			</if>
+		</where>
+		GROUP BY cp.ChargeDate, providerId, providerName
+	</select>
+
+	<select id="getProfitReport" resultType="net.chenlin.dp.modules.sc.entity.ScChargeprofitEntity">
+		SELECT
+			(
+				SELECT
+					outletname
+				FROM
+					sc_outlet o
+				WHERE
+					o.outletId = cp.outletId
+			) as outletName,
+			cp.outletid,
+			(
+				SELECT
+					COUNT(serialId)
+				FROM
+					sc_serial s
+				WHERE
+					s.outletId = cp.outletId
+			) as serialNum,
+			(
+				SELECT
+					SUM(chargeTime)
+				FROM
+					sc_charge c
+				WHERE
+					c.outletId = cp.outletId
+					<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+						AND DATE_FORMAT( ChargeDate, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+					</if>
+			) as chargeTime,
+			sum(cp.Profits) Profits,
+			sum(cp.ChargeNum) ChargeNum,
+			sum(cp.PowerConsumption) PowerConsumption,
+			sum(cp.DistProfits) DistProfits
+		FROM
+			sc_chargeprofit cp
+		<where>
+			cp.outletId IN (
+			SELECT
+			outletId
+			FROM
+			sc_outlet
+			WHERE
+			ProviderId = #{providerId}
+			)
+			<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+				AND DATE_FORMAT( ChargeDate, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+			</if>
+		</where>
+		GROUP BY outletName, outletId
 	</select>
 	
 	<insert id="save">

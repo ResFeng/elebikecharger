@@ -467,7 +467,7 @@ $.fn.selectBindEx = function(opt) {
         value: 'id',
         placeholder: '请选择...',
         selected: '',
-        allowClear: false,
+        allowClear: true,
         theme: "bootstrap",
         language: "zh-CN",
         change: function(){}

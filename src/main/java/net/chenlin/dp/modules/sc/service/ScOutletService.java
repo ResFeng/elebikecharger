@@ -1,5 +1,6 @@
 package net.chenlin.dp.modules.sc.service;
 
+import java.util.List;
 import java.util.Map;
 
 import net.chenlin.dp.common.entity.Page;
@@ -18,6 +19,13 @@ public interface ScOutletService {
      * @return
      */
 	Page<ScOutletEntity> listScOutlet(Map<String, Object> params);
+
+    /**
+     * 查询outlet
+     * @param params
+     * @return
+     */
+    List<ScOutletEntity> listOutlets(Map<String, Object> params);
 
     /**
      * 新增

@@ -1,5 +1,6 @@
 package net.chenlin.dp.modules.sc.service;
 
+import java.util.List;
 import java.util.Map;
 
 import net.chenlin.dp.common.entity.Page;
@@ -20,6 +21,12 @@ public interface ScProviderService {
 	Page<ScProviderEntity> listScProvider(Map<String, Object> params);
 
     /**
+     * 列出所有
+     * @return
+     */
+    List<ScProviderEntity> listAll();
+
+    /**
      * 新增
      * @param scProvider
      * @return
@@ -31,7 +38,14 @@ public interface ScProviderService {
      * @param id
      * @return
      */
-	R getScProviderById(Long id);
+	R getScProviderById(Object id);
+
+//    /**
+//     * 根据id查询详情
+//     * @param id
+//     * @return
+//     */
+//    R getProviderByProviderId(String id);
 
     /**
      * 修改

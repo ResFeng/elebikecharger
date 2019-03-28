@@ -20,6 +20,27 @@ public interface ScChargeprofitService {
 	Page<ScChargeprofitEntity> listScChargeprofit(Map<String, Object> params);
 
     /**
+     * 列出当日运营商收益
+     * @param params
+     * @return
+     */
+    Page<ScChargeprofitEntity> getProfit(Map<String, Object> params);
+
+    /**
+     * 设备使用统计
+     * @param params
+     * @return
+     */
+    Page<ScChargeprofitEntity> getProfitReport(Map<String, Object> params);
+
+    /**
+     * 列出当日运营商收益
+     * @param params
+     * @return
+     */
+    Page<ScChargeprofitEntity> listProfit(Map<String, Object> params);
+
+    /**
      * 新增
      * @param scChargeprofit
      * @return

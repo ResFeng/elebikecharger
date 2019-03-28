@@ -92,6 +92,21 @@ public class ScChargeEntity implements Serializable {
 	 * 
 	 */
 	private Integer havelooked;
+
+	/**
+	 *
+	 */
+	private String outletName;
+
+	/**
+	 *
+	 */
+	private int serialNum;
+
+	/**
+	 *
+	 */
+	private int chargeNum;
 	
     /**
      * ScChargeEntity constructor
@@ -340,7 +355,49 @@ public class ScChargeEntity implements Serializable {
 		return havelooked;
 	}
 
-    /**
+	/**
+	 *
+	 */
+	public void setSerialNum(int serialNum) {
+		this.serialNum = serialNum;
+	}
+
+	/**
+	 *
+	 */
+	public int getSerialNum() {
+		return serialNum;
+	}
+
+	/**
+	 *
+	 */
+	public void setOutletName(String outletName) {
+		this.outletName = outletName;
+	}
+
+	/**
+	 *
+	 */
+	public String getOutletName() {
+		return outletName;
+	}
+
+	/**
+	 *
+	 */
+	public int getChargeNum() {
+		return chargeNum;
+	}
+
+	/**
+	 *
+	 */
+	public void setChargeNum(int chargeNum) {
+		this.chargeNum = chargeNum;
+	}
+
+	/**
      * ScChargeEntity.toString()
      */
     @Override

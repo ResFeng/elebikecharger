@@ -6,6 +6,14 @@
 	<select id="listForPage" resultType="net.chenlin.dp.modules.sys.entity.SysUserEntity">
 		SELECT
 			u.user_id,
+			(
+				SELECT
+					providerName
+				FROM
+					sc_provider p
+				WHERE
+					p.providerId = u.provider_id
+			) AS providerName,
 			u.org_id,
 			(
 				SELECT 
@@ -44,6 +52,7 @@
 			password,
 			email,
 			mobile,
+			provider_id,
 			status
 		FROM
 			sys_user
@@ -80,6 +89,7 @@
 			status,
 			user_id_create,
 			org_id,
+			provider_id,
 			gmt_create
 		)
 		VALUES (
@@ -90,6 +100,7 @@
 			#{status},
 			#{userIdCreate},
 			#{orgId},
+			#{providerId},
 			NOW()
 		)
 	</insert>
@@ -106,6 +117,7 @@
 				WHERE 
 					o.org_id = u.org_id
 			) AS orgName,
+			u.provider_id,
 			u.username,
 			u.password,
 			u.email,
@@ -127,6 +139,7 @@
 			<if test="status != null">status = #{status}, </if>
 			<if test="orgId != null">org_id = #{orgId}, </if>
 			<if test="remark != null">remark = #{remark}, </if>
+			<if test="providerId != null">provider_id = #{providerId},</if>
 			gmt_modified = NOW()
 		</set>
 		where user_id = #{userId}

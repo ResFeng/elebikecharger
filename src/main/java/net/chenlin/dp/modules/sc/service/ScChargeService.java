@@ -1,5 +1,6 @@
 package net.chenlin.dp.modules.sc.service;
 
+import java.util.List;
 import java.util.Map;
 
 import net.chenlin.dp.common.entity.Page;
@@ -18,6 +19,13 @@ public interface ScChargeService {
      * @return
      */
 	Page<ScChargeEntity> listScCharge(Map<String, Object> params);
+
+    /**
+     * 获取端口使用统计
+     * @param params
+     * @return
+    */
+    List<ScChargeEntity> getSerialReport(Map<String, Object> params);
 
     /**
      * 新增

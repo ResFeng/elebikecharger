@@ -34,7 +34,27 @@ public class ScSerialController extends AbstractController {
 	public Page<ScSerialEntity> list(@RequestBody Map<String, Object> params) {
 		return scSerialService.listScSerial(params);
 	}
-		
+
+	/**
+	 * 根据outletid列出
+	 * @param params
+	 * @return
+	 */
+	@RequestMapping("/listByOutletId")
+	public Page<ScSerialEntity> listByOutletId(@RequestBody Map<String, Object> params){
+		return scSerialService.listByOutletId(params);
+	}
+
+	/**
+	 * 列出正在充电的端口
+	 * @param params
+	 * @return
+	 */
+	@RequestMapping("/listChargingSerial")
+	public Page<ScSerialEntity> listChargingSerial(@RequestBody Map<String, Object> params){
+		return scSerialService.listChargingSerial(params);
+	}
+
 	/**
 	 * 新增
 	 * @param scSerial

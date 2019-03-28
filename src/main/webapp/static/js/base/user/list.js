@@ -32,15 +32,19 @@ function getGrid() {
 		}, {
 			field : "username",
 			title : "用户名",
-			width : "200px"
+			width : "100px"
 		}, {
+            field : "providerName",
+            title : "关联运营商",
+            width : "200px"
+        }, {
 			field : "orgName",
 			title : "所属机构",
-			width : "200px"
+			width : "100px"
 		}, {
 			field : "email",
 			title : "邮箱",
-			width : "300px"
+			width : "200px"
 		}, {
 			field : "mobile",
 			title : "手机号",
@@ -73,7 +77,9 @@ function getGrid() {
 			width : "200px"
 		}, {
 			field : "remark",
-			title : "备注"
+			title : "备注",
+            width: "200px",
+            visible: false,
 		}, {
             title : "操作",
             formatter : function(value, row, index) {
@@ -128,7 +134,7 @@ var vm = new Vue({
 				title : '新增用户',
 				url : 'base/user/add.html?_' + $.now(),
                 width : '500px',
-                height : '456px',
+                height : '520px',
 				scroll : true,
 				yes : function(iframeId) {
 					top.frames[iframeId].vm.acceptClick();

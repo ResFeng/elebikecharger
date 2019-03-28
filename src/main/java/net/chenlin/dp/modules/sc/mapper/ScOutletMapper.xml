@@ -35,8 +35,66 @@
 			`DistributionMode`
 		FROM
 			sc_outlet
+		<where>
+			<if test="providerId != null">
+				ProviderId = #{providerId}
+			</if>
+		</where>
 		ORDER BY
 			OutletId DESC
+	</select>
+
+	<select id="listOutlets" resultType="net.chenlin.dp.modules.sc.entity.ScOutletEntity">
+		SELECT
+		`OutletId`,
+		`ProviderId`,
+		`OutletName`,
+		(
+			SELECT
+				COUNT(serialid)
+			FROM
+				sc_serial s
+			WHERE
+				s.outletid = o.outletid
+			AND
+				s.status = 1
+		) as chargingPortNum,
+		`TypeId`,
+		`Price`,
+		`Province`,
+		`City`,
+		`AreaID`,
+		`ServerId`,
+		`InstallationSite`,
+		`Longitude`,
+		`Latitude`,
+		`SerialNumber`,
+		`PriceMode`,
+		`Describe`,
+		`IP`,
+		`SerialNum`,
+		`Session`,
+		`AppKey`,
+		`IsOnline`,
+		`SignalQuality`,
+		`Enable`,
+		`Version`,
+		`ICCID`,
+		`EnableDate`,
+		`RecoverDate`,
+		`ElectricityPrice`,
+		`DistributionMode`
+		FROM
+		sc_outlet o
+		<where>
+			Latitude != ''
+			AND Longitude != ''
+			<if test="providerId != null">
+				AND ProviderId = #{providerId}
+			</if>
+		</where>
+		ORDER BY
+		OutletId DESC
 	</select>
 	
 	<insert id="save">
@@ -135,7 +193,7 @@
 		FROM
 			sc_outlet
 		WHERE
-			OutletId = #{outletid}
+			OutletId = #{value}
 	</select>
 	
 	<update id="update">

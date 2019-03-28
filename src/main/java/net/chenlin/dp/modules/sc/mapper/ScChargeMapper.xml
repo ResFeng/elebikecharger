@@ -26,6 +26,47 @@
 		ORDER BY
 			ChargeId DESC
 	</select>
+
+	<select id="getSerialReport" resultType="net.chenlin.dp.modules.sc.entity.ScChargeEntity">
+		SELECT
+			ch.outletid,
+			(
+				SELECT
+					outletname
+				FROM
+					sc_outlet o
+				WHERE
+					o.outletid = ch.outletid
+			) as outletName,
+			(
+				SELECT
+					COUNT(serialid)
+				FROM
+					sc_serial s
+				WHERE
+					s.outletid = ch.outletid
+			) as serialNum,
+			ch.serialid,
+			COUNT(ch.chargetime) as chargenum,
+			SUM(ch.chargetime) as chargetime,
+			SUM(ch.payment) as payment
+		FROM
+			sc_charge ch
+		WHERE
+			ch.outletid IN (
+				SELECT
+				outletid
+				FROM
+				sc_outlet
+				WHERE
+				ProviderId = #{providerId}
+			)
+			AND chargetime != 0
+		<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
+			AND DATE_FORMAT( ChargeDate, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
+		</if>
+		GROUP BY serialid, outletid
+	</select>
 	
 	<insert id="save">
 		INSERT INTO sc_charge (

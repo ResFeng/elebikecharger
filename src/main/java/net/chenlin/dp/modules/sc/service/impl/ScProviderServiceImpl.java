@@ -1,5 +1,6 @@
 package net.chenlin.dp.modules.sc.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,15 @@ public class ScProviderServiceImpl implements ScProviderService {
 		return page;
 	}
 
+	/**
+	 * 列出所有
+	 * @return
+	 */
+	@Override
+	public List<ScProviderEntity> listAll(){
+		return scProviderMapper.listAll();
+	}
+
     /**
      * 新增
      * @param scProvider
@@ -53,10 +63,20 @@ public class ScProviderServiceImpl implements ScProviderService {
      * @return
      */
 	@Override
-	public R getScProviderById(Long id) {
+	public R getScProviderById(Object id) {
 		ScProviderEntity scProvider = scProviderMapper.getObjectById(id);
 		return CommonUtils.msg(scProvider);
 	}
+
+//	/**
+//	 * 根据id查询详情
+//	 * @param id
+//	 * @return
+//	 */
+//	@Override
+//	public R getProviderByProviderId(String id) {
+//		return scProviderMapper.getProviderByProviderId(id);
+//	}
 
     /**
      * 修改

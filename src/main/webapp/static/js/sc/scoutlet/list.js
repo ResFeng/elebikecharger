@@ -43,19 +43,27 @@ function getGrid() {
             {field : "session", title : "", visible: false, width : "100px"},
             {field : "appkey", title : "", visible: false, width : "100px"},
             {field : "isonline", title : "是否在线", width : "100px", formatter: function(value, row, index){
-                    if(row.isonline === 0){
-                        return '<i class="fa fa-toggle-off"></i>';
+                    if (row.isonline === 1) {
+                        if (hasPermission('sc:outlet:edit')) {
+                            return '<input type="checkbox" class="js-switch online" data-id=' + row.outletid + ' checked>';
+                        } else {
+                            return '<i class="fa fa-toggle-on"></i>';
+                        }
                     }
-                    if(row.isonline === 1){
-                        return '<i class="fa fa-toggle-on"></i>';
+
+                    if (row.isonline === 0) {
+                        if (hasPermission('sc:outlet:edit')) {
+                            return '<input type="checkbox" class="js-switch online" data-id=' + row.outletid + '>';
+                        } else {
+                            return '<i class="fa fa-toggle-off"></i>';
+                        }
                     }
                 }},
             {field : "signalquality", title : "", visible: false, width : "100px"},
             {field : "enable", title : "是否启用", width : "100px", formatter: function(value, row, index){
-
                     if (row.enable === 1) {
                         if (hasPermission('sc:outlet:edit')) {
-                            return '<input type="checkbox" class="js-switch" data-id="' + row.outletid + '" checked>';
+                            return '<input type="checkbox" class="js-switch enable" data-id=' + row.outletid + ' checked>';
                         } else {
                             return '<i class="fa fa-toggle-on"></i>';
                         }
@@ -63,7 +71,7 @@ function getGrid() {
 
                     if (row.enable === 0) {
                         if (hasPermission('sc:outlet:edit')) {
-                            return '<input type="checkbox" class="js-switch" data-id="' + row.outletid + '">';
+                            return '<input type="checkbox" class="js-switch enable" data-id=' + row.outletid + '>';
                         } else {
                             return '<i class="fa fa-toggle-off"></i>';
                         }
@@ -83,6 +91,7 @@ function getGrid() {
                     if (hasPermission('sc:outlet:remove')) {
                         _html += '<a href="javascript:;" onclick="vm.remove(false,\''+row.outletid+'\')" title="删除"><i class="fa fa-trash-o"></i></a>';
                     }
+                    _html += '<a href="javascript:;" onclick="vm.port(\''+row.outletid+'\', \''+row.outletname+'\')" title="端口"><i class="fa fa-circle-o"></i></a>';
                     return _html;
                 }
             }
@@ -90,7 +99,7 @@ function getGrid() {
 
         onPostBody: function () {
             switchUtils.init({
-                selector: '.js-switch',
+                selector: '.enable',
                 single: false,
                 change: function (switchContainer) {
                     var url = '../../sc/outlet/disable?_' + $.now();
@@ -103,9 +112,23 @@ function getGrid() {
                         success: function (data) {
                             vm.load();
                         },
-                        false: function (data) {
-                            console.log(data)
-                        }
+                    });
+                }
+            });
+            switchUtils.init({
+                selector: '.online',
+                single: false,
+                change: function (switchContainer) {
+                    var url = '../../sc/outlet/offline?_' + $.now();
+                    if (switchUtils.checked(switchContainer)) {
+                        url = '../../sc/outlet/online?_' + $.now();
+                    }
+                    $.AjaxForm({
+                        url: url,
+                        param: switchUtils.data(switchContainer, "id"),
+                        success: function (data) {
+                            vm.load();
+                        },
                     });
 
                 }
@@ -128,7 +151,7 @@ var vm = new Vue({
 				title: '新增',
 				url: 'sc/scoutlet/add.html?_' + $.now(),
 				width: '600px',
-				height: '700px',
+				height: '450px',
 				yes : function(iframeId) {
 					top.frames[iframeId].vm.acceptClick();
 				},
@@ -138,8 +161,8 @@ var vm = new Vue({
             dialogOpen({
                 title: '编辑',
                 url: 'sc/scoutlet/edit.html?_' + $.now(),
-                width: '420px',
-                height: '350px',
+                width: '600px',
+                height: '450px',
                 success: function(iframeId){
                     top.frames[iframeId].vm.scOutlet.outletid = outletid;
                     top.frames[iframeId].vm.setForm();
@@ -169,6 +192,22 @@ var vm = new Vue({
                     vm.load();
                 }
             });
+        },
+        port: function (outletid, outletname) {
+            dialogOpen({
+                title: outletname+' 的端口列表',
+                url: 'sc/scoutlet/port.html?_' + $.now(),
+                width: '800px',
+                height: '500px',
+                btn: [],
+                success: function(iframeId){
+                    top.frames[iframeId].vm.keyword = outletid;
+                    top.frames[iframeId].vm.load();
+                },
+                yes: function(iframeId){
+                    dialogClose();
+                }
+            });
         }
 	}
-})
+});

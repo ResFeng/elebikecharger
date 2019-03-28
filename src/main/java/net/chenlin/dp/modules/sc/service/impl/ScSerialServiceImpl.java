@@ -36,6 +36,32 @@ public class ScSerialServiceImpl implements ScSerialService {
 		return page;
 	}
 
+	/**
+	 * 根据outletid列出
+	 * @param params
+	 * @return
+	 */
+	@Override
+	public Page<ScSerialEntity> listByOutletId(Map<String, Object> params){
+		Query query = new Query(params);
+		Page<ScSerialEntity> page = new Page<>(query);
+		scSerialMapper.listByOutletId(page, query);
+		return page;
+	}
+
+	/**
+	 * 列出正在充电的端口
+	 * @param params
+	 * @return
+	 */
+	@Override
+	public Page<ScSerialEntity> listChargingSerial(Map<String, Object> params){
+		Query query = new Query(params);
+		Page<ScSerialEntity> page = new Page<>(query);
+		scSerialMapper.listChargingSerial(page, query);
+		return page;
+	}
+
     /**
      * 新增
      * @param scSerial

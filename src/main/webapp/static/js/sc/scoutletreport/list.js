@@ -3,15 +3,15 @@
  */
 
 $(function () {
-	initialPage();
-	getGrid();
+    initialPage();
+    getGrid();
 });
 
 function initialPage() {
     vm.dateRangeSelect(1);
-	$(window).resize(function() {
-		$('#dataGrid').bootstrapTable('resetView', {height: $(window).height()-56});
-	});
+    $(window).resize(function() {
+        $('#dataGrid').bootstrapTable('resetView', {height: $(window).height()-56});
+    });
     //日期选择
     laydate.render({
         elem: '#dateRange',
@@ -26,50 +26,69 @@ function initialPage() {
             vm.endDate = formatDate(endDate.year + '-' + endDate.month + '-' + endDate.date, 'yyyy-MM-dd');
         }
     });
+    vm.getProviderList();
 }
 
 function getGrid() {
-	$('#dataGrid').bootstrapTableEx({
-		url: '../../sc/chargeprofit/getProfit?_' + $.now(),
-		height: $(window).height()-56,
-		queryParams: function(params){
+    $('#dataGrid').bootstrapTableEx({
+        url: '../../sc/chargeprofit/getProfitReport?_' + $.now(),
+        height: $(window).height()-56,
+        queryParams: function(params){
+            params.providerId = vm.providerId;
             params.startDate = vm.startDate;
             params.endDate = vm.endDate;
-			params.name = vm.keyword;
-			return params;
-		},
-		columns: [
-			{checkbox: true},
-            {field : "providerName", title : "运营商", width : "300px"},
-            {field : "chargedate", title : "日期", width : "100px"},
-            {field : "outletid", title : "", visible:false, width : "100px"},
-            {field : "providerId", title : "", visible:false, width : "100px"},
-            {field : "profits", title : "收入", width : "100px"},
+            params.name = vm.keyword;
+            return params;
+        },
+        columns: [
+            {field : "outletid", title : "设备号", width : "200px"},
+            {field : "outletName", title : "设备名称", width : "200px"},
+            {field : "serialNum", title : "端口数", width : "100px"},
+            {field : "chargeTime", title : "充电时间", width : "100px"},
             {field : "chargenum", title : "充电次数", width : "100px"},
-            {field : "powerconsumption", title : "用电量", width : "100px"},
-            {field : "distprofits", title : "利润", width : "100px"},
-            {title : "查看详细", formatter : function(value, row, index) {
-                    var _html = '<a href="javascript:;" class="btn btn-default" onclick="vm.detail(\''+row.chargedate+'\', \''+row.providerId+'\', \''+row.providerName+'\')"><i class="fa fa-search"></i>&nbsp;收益详细</a>';
-                    return _html;
-                }
-            }
-		]
-	})
+            {field : "profits", title : "收入金额", width : "100px"}
+        ]
+    })
 }
 
 var vm = new Vue({
-	el:'#dpLTE',
-	data: {
+    el:'#dpLTE',
+    data: {
         keyword: null,
         startDate : null,
         endDate : null,
         dateRangeText : '时间范围',
-        dateRange : null
-	},
-	methods : {
-		load: function() {
-			$('#dataGrid').bootstrapTable('refresh');
-		},
+        dateRange : null,
+        providerId: null
+    },
+    methods : {
+        load: function() {
+            vm.providerId = $('.provider').val();
+            if(vm.providerId != null){
+                $('#dataGrid').bootstrapTable('refresh');
+            }
+        },
+        getProviderList: function(){
+            $.ajax({
+                type:"POST",	//post request
+                url:'../../sc/provider/listAll?_' + $.now(),
+                dataType:"json",
+                error:function () {
+                },
+                success:function(data){
+                    var optionString = "";
+                    for(var i = 0; i<data.length; i++){
+                        optionString += "<option grade=\""+data[i].providerid+"\" value=\""+data[i].providerid+"\"";
+                        optionString += ">"+data[i].providername+"</option>";
+                    }
+                    $('.provider').append(optionString);
+                    if(data.length == 1){
+                        $('.provider').attr('value', data[0].providerid);
+                        vm.providerId = data[0].providerid;
+                    }
+                }
+            });
+        },
         dateRangeSelect : function(count) {
             if(count==1){
                 vm.dateRangeText = '最近一天';
@@ -99,7 +118,6 @@ var vm = new Vue({
                 url: 'sc/scchargeprofit/detail.html?_' + $.now(),
                 width: '800px',
                 height: '500px',
-                btn: [],
                 success: function(iframeId){
                     top.frames[iframeId].vm.chargeDate = chargedate;
                     top.frames[iframeId].vm.providerId = providerId;
@@ -110,5 +128,5 @@ var vm = new Vue({
                 },
             });
         },
-	}
+    }
 })

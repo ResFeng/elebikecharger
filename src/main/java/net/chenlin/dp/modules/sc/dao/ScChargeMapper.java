@@ -1,9 +1,14 @@
 package net.chenlin.dp.modules.sc.dao;
 
+import net.chenlin.dp.common.entity.Page;
+import net.chenlin.dp.common.entity.Query;
 import org.apache.ibatis.annotations.Mapper;
 
 import net.chenlin.dp.modules.sc.entity.ScChargeEntity;
 import net.chenlin.dp.modules.sys.dao.BaseMapper;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -11,5 +16,11 @@ import net.chenlin.dp.modules.sys.dao.BaseMapper;
  */
 @Mapper
 public interface ScChargeMapper extends BaseMapper<ScChargeEntity> {
+    /**
+     * 获取端口使用统计
+     * @param params
+     * @return
+     */
+    List<ScChargeEntity> getSerialReport(Map<String, Object> params);
 	
 }

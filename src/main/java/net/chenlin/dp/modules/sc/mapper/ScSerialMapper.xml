@@ -15,6 +15,32 @@
 			Id DESC
 	</select>
 	
+	<select id="listByOutletId" resultType="net.chenlin.dp.modules.sc.entity.ScSerialEntity">
+		SELECT 
+			`Id`,
+			`OutletId`,
+			`SerialId`,
+			`Status`
+		FROM 
+			sc_serial
+		WHERE 
+			outletId = #{name}
+	</select>
+
+	<select id="listChargingSerial" resultType="net.chenlin.dp.modules.sc.entity.ScSerialEntity">
+		SELECT
+			`Id`,
+			`OutletId`,
+			`SerialId`,
+			`Status`
+		FROM
+			sc_serial
+		WHERE
+			outletId = #{name}
+		AND
+			status = 1
+	</select>
+	
 	<insert id="save">
 		INSERT INTO sc_serial (
 			`OutletId`, 

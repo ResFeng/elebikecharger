@@ -80,7 +80,17 @@ public class SysUserEntity implements Serializable {
 	/**
 	 * 角色id列表
 	 */
-	private List<Long> roleIdList;
+	private Long roleIdList;
+
+	/**
+	 * 所属运营者 id
+	 */
+	private String providerId;
+
+	/**
+	 * 所属运营者名称
+	 */
+	private String providerName;
 
 	public SysUserEntity() {
 		super();
@@ -182,12 +192,27 @@ public class SysUserEntity implements Serializable {
 		this.gmtModified = gmtModified;
 	}
 
-	public List<Long> getRoleIdList() {
+	public Long getRoleIdList() {
 		return roleIdList;
 	}
 
-	public void setRoleIdList(List<Long> roleIdList) {
+	public void setRoleIdList(Long roleIdList) {
 		this.roleIdList = roleIdList;
 	}
 
+	public void setProviderId(String providerId) {
+		this.providerId = providerId;
+	}
+
+	public String getProviderId() {
+		return providerId;
+	}
+
+	public void setProviderName(String providerName) {
+		this.providerName = providerName;
+	}
+
+	public String getProviderName() {
+		return providerName;
+	}
 }

@@ -7,6 +7,8 @@ import net.chenlin.dp.common.entity.R;
 import net.chenlin.dp.common.support.properties.JwtProperties;
 import net.chenlin.dp.common.utils.CommonUtils;
 import net.chenlin.dp.common.utils.MD5Utils;
+import net.chenlin.dp.modules.sc.dao.ScProviderMapper;
+import net.chenlin.dp.modules.sc.entity.ScProviderEntity;
 import net.chenlin.dp.modules.sys.dao.*;
 import net.chenlin.dp.modules.sys.entity.SysUserEntity;
 import net.chenlin.dp.modules.sys.entity.SysUserTokenEntity;
@@ -35,6 +37,9 @@ public class SysUserServiceImpl implements SysUserService {
 
 	@Autowired
 	private SysUserRoleMapper sysUserRoleMapper;
+
+	@Autowired
+	private ScProviderMapper scProviderMapper;
 
 	@Autowired
 	private SysUserTokenMapper sysUserTokenMapper;

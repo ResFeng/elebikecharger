@@ -36,6 +36,45 @@ public class ScChargeprofitServiceImpl implements ScChargeprofitService {
 		return page;
 	}
 
+	/**
+	 * 列出当日运营商收益
+	 * @param params
+	 * @return
+	 */
+	@Override
+	public Page<ScChargeprofitEntity> getProfit(Map<String, Object> params){
+		Query query = new Query(params);
+		Page<ScChargeprofitEntity> page = new Page<>(query);
+		scChargeprofitMapper.getProfit(page, query);
+		return page;
+	}
+
+	/**
+	 * 列出当日运营商收益
+	 * @param params
+	 * @return
+	 */
+	@Override
+	public Page<ScChargeprofitEntity> getProfitReport(Map<String, Object> params){
+		Query query = new Query(params);
+		Page<ScChargeprofitEntity> page = new Page<>(query);
+		scChargeprofitMapper.getProfitReport(page, query);
+		return page;
+	}
+
+	/**
+	 * 列出当日运营商收益
+	 * @param params
+	 * @return
+	 */
+	@Override
+	public Page<ScChargeprofitEntity> listProfit(Map<String, Object> params){
+		Query query = new Query(params);
+		Page<ScChargeprofitEntity> page = new Page<>(query);
+		scChargeprofitMapper.listProfit(page, query);
+		return page;
+	}
+
     /**
      * 新增
      * @param scChargeprofit

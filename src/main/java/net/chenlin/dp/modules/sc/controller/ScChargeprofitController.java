@@ -2,6 +2,8 @@ package net.chenlin.dp.modules.sc.controller;
 
 import java.util.Map;
 
+import net.chenlin.dp.modules.sys.dao.SysUserMapper;
+import net.chenlin.dp.modules.sys.dao.SysUserRoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,10 @@ public class ScChargeprofitController extends AbstractController {
 	
 	@Autowired
 	private ScChargeprofitService scChargeprofitService;
+	@Autowired
+	private SysUserRoleMapper sysUserRoleMapper;
+	@Autowired
+	private SysUserMapper sysUserMapper;
 	
 	/**
 	 * 列表
@@ -33,6 +39,33 @@ public class ScChargeprofitController extends AbstractController {
 	@RequestMapping("/list")
 	public Page<ScChargeprofitEntity> list(@RequestBody Map<String, Object> params) {
 		return scChargeprofitService.listScChargeprofit(params);
+	}
+
+	/**
+	 * 列出当日运营商收益
+	 * @param params
+	 * @return
+	 */
+	@RequestMapping("/getProfit")
+	public Page<ScChargeprofitEntity> getProfit(@RequestBody Map<String, Object> params){
+		Long roleId = sysUserRoleMapper.listUserRoleId(getUserId());
+		if(roleId != 1){
+			params.put("providerId", sysUserMapper.getObjectById(getUserId()).getProviderId());
+			return scChargeprofitService.getProfit(params);
+		}else{
+			params.put("providerId", null);
+			return scChargeprofitService.listProfit(params);
+		}
+	}
+
+	/**
+	 * 设备使用统计
+	 * @param params
+	 * @return
+	 */
+	@RequestMapping("/getProfitReport")
+	public Page<ScChargeprofitEntity> getProfitReport(@RequestBody Map<String, Object> params){
+			return scChargeprofitService.getProfitReport(params);
 	}
 		
 	/**

@@ -1,10 +1,12 @@
 package net.chenlin.dp.modules.sc.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.chenlin.dp.common.annotation.SysLog;
@@ -33,6 +35,16 @@ public class ScChargeController extends AbstractController {
 	@RequestMapping("/list")
 	public Page<ScChargeEntity> list(@RequestBody Map<String, Object> params) {
 		return scChargeService.listScCharge(params);
+	}
+
+	/**
+	 * 获取端口使用统计
+	 * @param params
+	 * @return
+	 */
+	@RequestMapping("/getSerialReport")
+	public List<ScChargeEntity> getSerialReport(@RequestBody Map<String, Object> params){
+		return scChargeService.getSerialReport(params);
 	}
 		
 	/**

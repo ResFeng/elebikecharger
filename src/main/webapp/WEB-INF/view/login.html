@@ -68,11 +68,11 @@
                 return false;
             }
             @if(kaptchaEnable){
-			var code = $('#code').val();
-			if (code === '') {
+            var code = $('#code').val();
+            if (code === '') {
 				$('.tip').text('验证码不能为空');
 				return false;
-			}
+            }
             @}
             $('#loginForm').submit();
         }

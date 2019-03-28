@@ -8,6 +8,12 @@
         </td>
     </tr>
     <tr>
+        <td class="formTitle">运营商<font face="宋体"></font></td>
+        <td class="formValue">
+            <select class="provider form-control" v-model="user.providerId" isvalid="yes"></select>
+        </td>
+    </tr>
+    <tr>
         <td class="formTitle">所属机构<font face="宋体">*</font></td>
         <td class="formValue">
             <input type="text" class="form-control pointer" placeholder="所属机构" v-model="user.orgName" \@click="orgTree"
@@ -24,13 +30,13 @@
     <tr>
         <td class="formTitle">邮箱</td>
         <td class="formValue">
-            <input type="text" class="form-control" placeholder="邮箱" v-model="user.email">
+            <input type="text" class="email form-control" placeholder="邮箱" v-model="user.email">
         </td>
     </tr>
     <tr>
         <td class="formTitle">手机号</td>
         <td class="formValue">
-            <input type="text" class="form-control" placeholder="手机号" v-model="user.mobile">
+            <input type="text" class="mobile form-control" placeholder="手机号" v-model="user.mobile">
         </td>
     </tr>
     <tr>
@@ -42,8 +48,7 @@
     <tr>
         <td class="formTitle">角色<font face="宋体">*</font></td>
         <td class="formValue">
-            <select style="width:370px;" class="form-control roleSelect" isvalid="yes" checkexpession="NotNull"
-                    multiple></select>
+            <select style="width:370px;" class="form-control roleSelect" isvalid="yes" checkexpession="NotNull"></select>
         </td>
     </tr>
     <tr>

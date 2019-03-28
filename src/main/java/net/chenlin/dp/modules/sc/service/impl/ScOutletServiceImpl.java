@@ -1,5 +1,6 @@
 package net.chenlin.dp.modules.sc.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,16 @@ public class ScOutletServiceImpl implements ScOutletService {
 		return page;
 	}
 
+	/**
+	 * 查询outlet
+	 * @param params
+	 * @return
+	 */
+	@Override
+	public List<ScOutletEntity> listOutlets(Map<String, Object> params){
+		return scOutletMapper.listOutlets(params);
+	}
+
     /**
      * 新增
      * @param scOutlet
@@ -65,6 +76,7 @@ public class ScOutletServiceImpl implements ScOutletService {
      */
 	@Override
 	public R updateScOutlet(ScOutletEntity scOutlet) {
+		scOutlet.setOutletid(scOutlet.getOutletid().replaceAll("\"", ""));
 		int count = scOutletMapper.update(scOutlet);
 		return CommonUtils.msg(count);
 	}

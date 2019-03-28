@@ -153,6 +153,11 @@ public class ScOutletEntity implements Serializable {
 	 * 
 	 */
 	private Integer distributionmode;
+
+	/**
+	 *
+	 */
+	private int chargingPortNum;
 	
     /**
      * ScOutletEntity constructor
@@ -581,7 +586,21 @@ public class ScOutletEntity implements Serializable {
 		return distributionmode;
 	}
 
-    /**
+	/**
+	 *
+	 */
+	public int getChargingPortNum() {
+		return chargingPortNum;
+	}
+
+	/**
+	 *
+	 */
+	public void setChargingPortNum(int chargingPortNum) {
+		this.chargingPortNum = chargingPortNum;
+	}
+
+	/**
      * ScOutletEntity.toString()
      */
     @Override

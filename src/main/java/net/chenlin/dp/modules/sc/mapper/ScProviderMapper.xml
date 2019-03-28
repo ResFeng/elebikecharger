@@ -30,6 +30,34 @@
 		ORDER BY
 			Id DESC
 	</select>
+
+	<select id="listAll" resultType="net.chenlin.dp.modules.sc.entity.ScProviderEntity">
+		SELECT
+			`Id`,
+			`ProviderId`,
+			`ProviderType`,
+			`ProviderName`,
+			`JoinDate`,
+			`Address`,
+			`Province`,
+			`City`,
+			`Area`,
+			`Legal`,
+			`Telephone`,
+			`WechatId`,
+			`OpenId`,
+			`CitizenId`,
+			`Email`,
+			`Bank`,
+			`AccountName`,
+			`Account`,
+			`Enable`,
+			`Remark`
+		FROM
+			sc_provider
+		ORDER BY
+			Id DESC
+	</select>
 	
 	<insert id="save">
 		INSERT INTO sc_provider (
@@ -102,6 +130,17 @@
 			sc_provider
 		WHERE
 			Id = #{id}
+		OR
+			providerid = #{id}
+	</select>
+
+	<select id="getProviderName" resultType="String">
+		SELECT
+			`ProviderName`
+		FROM
+			sc_provider
+		WHERE
+			providerid = #{providerId}
 	</select>
 	
 	<update id="update">

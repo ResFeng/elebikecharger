@@ -1,6 +1,10 @@
 @layout("../../system/layout.html", {title: ""}){
 <div class="row">
-    <div class="col-md-4 form-inline pull-left">
+    <div class="col-md-10 form-inline pull-left">
+        <div class="input-group">
+            <select class="form-control provider" isvalid="yes" style="width: 250px">
+            </select>
+        </div>
         <div class="input-group">
             <input id="dateRange" :value="dateRange" class="form-control" placeholder="请选择时间范围" style="width: 190px;"/>
             <div class="input-group-btn">
@@ -20,18 +24,9 @@
             <a class="btn btn-primary" \@click="load"><i class="fa fa-search"></i>&nbsp;查询</a>
         </div>
     </div>
-    <div class="col-md-8">
-        <div class="btn-toolbar pull-right">
-            <div class="btn-group">
-                <a v-if="hasPermission('sc:chargeprofit:list')" class="btn btn-default" onclick="reload();"><i class="fa fa-refresh"></i>&nbsp;刷新</a>
-                <a v-if="hasPermission('sc:chargeprofit:save')" class="btn btn-default" \@click="save"><i class="fa fa-plus"></i>&nbsp;新增</a>
-                <a v-if="hasPermission('sc:chargeprofit:remove')" class="btn btn-default" \@click="remove(true)"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
-            </div>
-        </div>
-    </div>
 </div>
 <div class="row">
     <table id="dataGrid"></table>
 </div>
-<script src="${ctxPath}/static/js/sc/scchargeprofit/list.js"></script>
+<script src="${ctxPath}/static/js/sc/scserialreport/list.js"></script>
 @}
