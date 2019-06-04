@@ -18,7 +18,8 @@ public class RestApiConstant {
     public static final String AUTH_TOKEN = "token";
 
     /** token过期时间：默认7天 **/
-    public static Long TOKEN_EXPIRE = 604800000L;
+    /** 改为20分钟 **/
+    public static Long TOKEN_EXPIRE = 64800000L;
 
     /**
      * token错误提示枚举

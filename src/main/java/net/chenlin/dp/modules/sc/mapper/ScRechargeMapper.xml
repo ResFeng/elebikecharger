@@ -28,7 +28,7 @@
 			`TimeEnd`
 		)
 		VALUES (
-			#{userid}, 
+			#{userId},
 			#{rechargedate}, 
 			#{amount}, 
 			#{mode}, 
@@ -55,7 +55,7 @@
 	<update id="update">
 		UPDATE sc_recharge
 	 	<set>
-			<if test="userid != null">`UserId` = #{userid}, </if>
+			<if test="userId != null">`UserId` = #{userId}, </if>
 			<if test="rechargedate != null">`RechargeDate` = #{rechargedate}, </if>
 			<if test="amount != null">`Amount` = #{amount}, </if>
 			<if test="mode != null">`Mode` = #{mode}, </if>

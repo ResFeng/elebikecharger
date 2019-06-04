@@ -1,5 +1,6 @@
 package net.chenlin.dp.modules.sc.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,16 @@ public class ScUploadController extends AbstractController {
 	@RequestMapping("/list")
 	public Page<ScUploadEntity> list(@RequestBody Map<String, Object> params) {
 		return scUploadService.listScUpload(params);
+	}
+
+	/**
+	 * 获取实时数据
+	 * @param params
+	 * @return
+	 */
+	@RequestMapping("/getRealTimeData")
+	public List<ScUploadEntity> getRealTimeData(@RequestBody Map<String, Object> params){
+		return scUploadService.getRealTimeData(params);
 	}
 		
 	/**

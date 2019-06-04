@@ -1,0 +1,26 @@
+@layout("../../system/layout.html", {title: ""}){
+<div class="row">
+    <div class="col-md-8 form-inline pull-left">
+        <div class="input-group">
+            <input  type="text" class="form-control" data-time="start" id="monthStart">
+            <span class="input-group-addon">至</span>
+            <input  type="text" class="form-control" data-time="monthEnd" id="monthEnd"  >
+        </div>
+        <div class="form-group">
+            <a class="btn btn-primary" \@click="load"><i class="fa fa-search"></i>&nbsp;查询</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="btn-toolbar pull-right">
+            <div class="btn-group">
+                <a v-if="hasPermission('sc:scpayprovider:list')" class="btn btn-default" onclick="reload();"><i class="fa fa-refresh"></i>&nbsp;刷新</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <table id="dataGrid"></table>
+</div>
+<script src="${ctxPath}/static/plugins/printPage/jquery.printPage.js"></script>
+<script src="${ctxPath}/static/js/sc/scpayprovider/list.js"></script>
+@}

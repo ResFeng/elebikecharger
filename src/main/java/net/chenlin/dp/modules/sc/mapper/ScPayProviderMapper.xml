@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.chenlin.dp.modules.sc.dao.ScPayProviderMapper">
+
+    <select id="listForPage" resultType="net.chenlin.dp.modules.sc.entity.ScPayProviderEntity">
+        SELECT
+            `Id`,
+            `ProviderId`,
+            (
+              SELECT
+                providerName
+              FROM
+                sc_provider p
+              WHERE p.providerId = pp.providerId
+            ) as providerName,
+            `PayMonth`,
+            `PayDate`,
+            `RandomString`,
+            `Amount`,
+            `PaymentType`,
+            `OpenId`,
+            `AccountName`,
+            `BankAccount`,
+            `BankCode`,
+            `PaymentStatus`,
+            `Remark`,
+            `Ip`
+        FROM
+            sc_payprovider pp
+        <where>
+            <if test="providerId != null and providerId != ''">
+                providerId = #{providerId}
+            </if>
+        </where>
+		ORDER BY Id DESC
+    </select>
+
+    <select id="getById" resultType="net.chenlin.dp.modules.sc.entity.ScPayProviderEntity">
+        SELECT
+            `Id`,
+            `ProviderId`,
+            `PayMonth`,
+            `PayDate`,
+            `RandomString`,
+            `Amount`,
+            `PaymentType`,
+            `OpenId`,
+            `AccountName`,
+            `BankAccount`,
+            `BankCode`,
+            `PaymentStatus`,
+            `Remark`,
+            `Ip`
+        FROM
+            sc_payprovider
+        WHERE
+            `Id` = #{id}
+    </select>
+
+    <select id="getId" resultType="int">
+        SELECT
+          `Id`
+        FROM
+          sc_payprovider
+        WHERE
+          `ProviderId` = #{providerId}
+        AND
+          `PayMonth` = #{payMonth}
+    </select>
+
+    <insert id="save">
+        INSERT INTO sc_payprovider
+            (
+                `ProviderId`,
+                `PayMonth`,
+                `PayDate`,
+                `RandomString`,
+                `Amount`,
+                `PaymentType`,
+                `OpenId`,
+                `AccountName`,
+                `BankAccount`,
+                `BankCode`,
+                `PaymentStatus`,
+                `Remark`,
+                `Ip`
+            )
+        VALUES
+            (
+                #{providerId},
+                #{payMonth},
+                now(),
+                #{randomString},
+                #{Amount},
+                #{paymentType},
+                #{openId},
+                #{accountName},
+                #{bankAccount},
+                #{bankCode},
+                #{paymentStatus},
+                #{remark},
+                #{ip}
+            )
+    </insert>
+
+    <delete id="remove">
+        DELETE FROM sc_payprovider
+        WHERE `Id` = #{id}
+    </delete>
+</mapper>

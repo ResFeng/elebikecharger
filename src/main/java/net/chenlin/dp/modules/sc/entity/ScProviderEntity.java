@@ -32,6 +32,8 @@ public class ScProviderEntity implements Serializable {
 	 * 
 	 */
 	private String providername;
+
+	private String providerfullname;
 	
 	/**
 	 * 
@@ -173,7 +175,15 @@ public class ScProviderEntity implements Serializable {
 		this.providername = providername;
 	}
 
-    /**
+	public String getProviderfullname() {
+		return providerfullname;
+	}
+
+	public void setProviderfullname(String providerfullname) {
+		this.providerfullname = providerfullname;
+	}
+
+	/**
      * getter for providername
      */
 	public String getProvidername() {

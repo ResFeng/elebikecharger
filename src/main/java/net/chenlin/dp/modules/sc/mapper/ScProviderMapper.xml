@@ -8,7 +8,8 @@
 			`Id`, 
 			`ProviderId`, 
 			`ProviderType`, 
-			`ProviderName`, 
+			`ProviderName`,
+			`ProviderFullName`,
 			`JoinDate`, 
 			`Address`, 
 			`Province`, 
@@ -37,6 +38,7 @@
 			`ProviderId`,
 			`ProviderType`,
 			`ProviderName`,
+			`ProviderFullName`,
 			`JoinDate`,
 			`Address`,
 			`Province`,
@@ -63,7 +65,8 @@
 		INSERT INTO sc_provider (
 			`ProviderId`, 
 			`ProviderType`, 
-			`ProviderName`, 
+			`ProviderName`,
+			`ProviderFullName`,
 			`JoinDate`, 
 			`Address`, 
 			`Province`, 
@@ -84,7 +87,8 @@
 		VALUES (
 			#{providerid}, 
 			#{providertype}, 
-			#{providername}, 
+			#{providername},
+			#{providerfullname},
 			#{joindate}, 
 			#{address}, 
 			#{province}, 
@@ -93,7 +97,7 @@
 			#{legal}, 
 			#{telephone}, 
 			#{wechatid}, 
-			#{openid}, 
+			#{openId},
 			#{citizenid}, 
 			#{email}, 
 			#{bank}, 
@@ -109,7 +113,8 @@
 			`Id`, 
 			`ProviderId`, 
 			`ProviderType`, 
-			`ProviderName`, 
+			`ProviderName`,
+			`ProviderFullName`,
 			`JoinDate`, 
 			`Address`, 
 			`Province`, 
@@ -149,6 +154,7 @@
 			<if test="providerid != null">`ProviderId` = #{providerid}, </if>
 			<if test="providertype != null">`ProviderType` = #{providertype}, </if>
 			<if test="providername != null">`ProviderName` = #{providername}, </if>
+			<if test="providerfullname != null">`ProviderFullName` = #{providerfullname}, </if>
 			<if test="joindate != null">`JoinDate` = #{joindate}, </if>
 			<if test="address != null">`Address` = #{address}, </if>
 			<if test="province != null">`Province` = #{province}, </if>
@@ -157,7 +163,7 @@
 			<if test="legal != null">`Legal` = #{legal}, </if>
 			<if test="telephone != null">`Telephone` = #{telephone}, </if>
 			<if test="wechatid != null">`WechatId` = #{wechatid}, </if>
-			<if test="openid != null">`OpenId` = #{openid}, </if>
+			<if test="openId != null">`OpenId` = #{openId}, </if>
 			<if test="citizenid != null">`CitizenId` = #{citizenid}, </if>
 			<if test="email != null">`Email` = #{email}, </if>
 			<if test="bank != null">`Bank` = #{bank}, </if>

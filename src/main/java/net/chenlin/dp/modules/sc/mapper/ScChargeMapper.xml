@@ -87,7 +87,7 @@
 			`HaveLooked`
 		)
 		VALUES (
-			#{userid}, 
+			#{userId},
 			#{outletid}, 
 			#{serialid}, 
 			#{chargedate}, 
@@ -132,7 +132,7 @@
 	<update id="update">
 		UPDATE sc_charge
 	 	<set>
-			<if test="userid != null">`UserId` = #{userid}, </if>
+			<if test="userId != null">`UserId` = #{userId}, </if>
 			<if test="outletid != null">`OutletId` = #{outletid}, </if>
 			<if test="serialid != null">`SerialId` = #{serialid}, </if>
 			<if test="chargedate != null">`ChargeDate` = #{chargedate}, </if>

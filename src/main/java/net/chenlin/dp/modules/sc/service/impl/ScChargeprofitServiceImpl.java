@@ -1,5 +1,6 @@
 package net.chenlin.dp.modules.sc.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,28 @@ public class ScChargeprofitServiceImpl implements ScChargeprofitService {
 		Page<ScChargeprofitEntity> page = new Page<>(query);
 		scChargeprofitMapper.listProfit(page, query);
 		return page;
+	}
+
+	/**
+	 * 按月份列出运营商收益
+	 * @param params
+	 * @return
+	 */
+	public Page<ScChargeprofitEntity> listMonthProfit(Map<String, Object> params){
+		Query query = new Query(params);
+		Page<ScChargeprofitEntity> page = new Page<>(query);
+		scChargeprofitMapper.listMonthProfit(page, query);
+		return page;
+	}
+
+	/**
+	 * 列出要打印的详细
+	 * @param params
+	 * @return
+	 */
+	@Override
+	public List<ScChargeprofitEntity> listForDetail(Map<String, Object> params){
+		return scChargeprofitMapper.listForDetail(params);
 	}
 
     /**

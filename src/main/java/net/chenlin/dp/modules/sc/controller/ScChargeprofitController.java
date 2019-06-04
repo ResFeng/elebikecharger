@@ -1,5 +1,6 @@
 package net.chenlin.dp.modules.sc.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import net.chenlin.dp.modules.sys.dao.SysUserMapper;
@@ -42,6 +43,16 @@ public class ScChargeprofitController extends AbstractController {
 	}
 
 	/**
+	 * 按月份列出运营商收益
+	 * @param params
+	 * @return
+	 */
+	@RequestMapping("/listMonthProfit")
+	public Page<ScChargeprofitEntity> listMonthProfit(@RequestBody Map<String, Object> params){
+		return scChargeprofitService.listMonthProfit(params);
+	}
+
+	/**
 	 * 列出当日运营商收益
 	 * @param params
 	 * @return
@@ -66,6 +77,16 @@ public class ScChargeprofitController extends AbstractController {
 	@RequestMapping("/getProfitReport")
 	public Page<ScChargeprofitEntity> getProfitReport(@RequestBody Map<String, Object> params){
 			return scChargeprofitService.getProfitReport(params);
+	}
+
+	/**
+	 * 列出要打印的详细
+	 * @param params
+	 * @return
+	 */
+	@RequestMapping("/listForDetail")
+	public List<ScChargeprofitEntity> listForDetail(@RequestBody Map<String, Object> params){
+		return scChargeprofitService.listForDetail(params);
 	}
 		
 	/**

@@ -1,5 +1,6 @@
 package net.chenlin.dp.modules.sc.service;
 
+import java.util.List;
 import java.util.Map;
 
 import net.chenlin.dp.common.entity.Page;
@@ -39,6 +40,20 @@ public interface ScChargeprofitService {
      * @return
      */
     Page<ScChargeprofitEntity> listProfit(Map<String, Object> params);
+
+    /**
+     * 按月份列出运营商收益
+     * @param params
+     * @return
+     */
+    Page<ScChargeprofitEntity> listMonthProfit(Map<String, Object> params);
+
+    /**
+     * 列出要打印的详细
+     * @param params
+     * @return
+     */
+    List<ScChargeprofitEntity> listForDetail(Map<String, Object> params);
 
     /**
      * 新增

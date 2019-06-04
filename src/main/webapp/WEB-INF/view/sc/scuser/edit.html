@@ -1,0 +1,35 @@
+@layout("../../system/layout.html", {title: ""}){
+<table class="form" id="form">
+    <tr>
+        <td class="formTitle">id<font face="宋体">*</font></td>
+        <td class="formValue">
+            <input type="text" class="form-control" placeholder="id" v-model="scUser.userId" isvalid="yes" checkexpession="NotNull" readonly="readonly">
+        </td>
+    </tr>
+    <tr>
+        <td class="formTitle">用户名<font face="宋体"></font></td>
+        <td class="formValue">
+            <input type="text" class="form-control" placeholder="用户名" v-model="scUser.username" isvalid="yes">
+        </td>
+    </tr>
+    <tr>
+        <td class="formTitle">联系电话<font face="宋体">*</font></td>
+        <td class="formValue">
+            <input type="text" class="form-control" placeholder="电话" v-model="scUser.mobile" isvalid="yes" checkexpession="NotNull">
+        </td>
+    </tr>
+    <tr>
+        <td class="formTitle">余额<font face="宋体">*</font></td>
+        <td class="formValue">
+            <input type="text" class="form-control" placeholder="余额" v-model="scUser.account" isvalid="yes" checkexpession="NotNull">
+        </td>
+    </tr>
+    <tr>
+        <td class="formTitle">openId<font face="宋体">*</font></td>
+        <td class="formValue">
+            <input type="text" class="form-control" placeholder="openId" v-model="scUser.openId" isvalid="yes" checkexpession="NotNull">
+        </td>
+    </tr>
+</table>
+<script src="${ctxPath}/static/js/sc/scuser/edit.js"></script>
+@}

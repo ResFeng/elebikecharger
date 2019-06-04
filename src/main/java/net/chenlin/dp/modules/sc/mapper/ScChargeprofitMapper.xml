@@ -108,6 +108,59 @@
 		GROUP BY cp.ChargeDate, providerId, providerName
 	</select>
 
+	<select id="listMonthProfit" resultType="net.chenlin.dp.modules.sc.entity.ScChargeprofitEntity">
+		SELECT
+		(
+			SELECT
+			providername
+			FROM
+			sc_provider p
+			WHERE
+			p.providerId = (
+				SELECT
+				providerid
+				FROM
+				sc_outlet o
+				WHERE
+				o.outletid = cp.outletid
+			)
+		) as providerName,
+		(
+			SELECT
+			providerid
+			FROM
+			sc_outlet o
+			WHERE
+			o.outletid = cp.outletid
+		) as providerId,
+		CONCAT(YEAR(ChargeDate),'-',MONTH(ChargeDate)) AS chargeMonth,
+		(
+			SELECT
+			id
+			FROM
+			sc_payprovider pp
+			WHERE
+			pp.payMonth = chargeMonth
+			AND
+			pp.providerid = (
+				SELECT
+				providerid
+				FROM
+				sc_outlet o
+				WHERE
+				o.outletid = cp.outletid
+			)
+		) as payId,
+		sum(cp.Profits) Profits,
+		sum(cp.DistProfits) DistProfits
+		FROM
+		sc_chargeprofit cp
+		WHERE
+			DATE_FORMAT( ChargeDate, '%Y-%m') BETWEEN #{startDate} AND #{endDate}
+		GROUP BY chargeMonth, providerId, providerName, payId
+		ORDER BY payId, chargeMonth
+	</select>
+
 	<select id="getProfitReport" resultType="net.chenlin.dp.modules.sc.entity.ScChargeprofitEntity">
 		SELECT
 			(
@@ -156,6 +209,54 @@
 			<if test=" startDate != null and startDate != '' and endDate != null and endDate != '' ">
 				AND DATE_FORMAT( ChargeDate, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
 			</if>
+		</where>
+		GROUP BY outletName, outletId
+	</select>
+
+	<select id="listForDetail" resultType="net.chenlin.dp.modules.sc.entity.ScChargeprofitEntity">
+		SELECT
+		(
+			SELECT
+			outletname
+			FROM
+			sc_outlet o
+			WHERE
+			o.outletId = cp.outletId
+		) as outletName,
+		cp.outletid,
+		(
+			SELECT
+			COUNT(serialId)
+			FROM
+			sc_serial s
+			WHERE
+			s.outletId = cp.outletId
+		) as serialNum,
+		(
+			SELECT
+			SUM(chargeTime)
+			FROM
+			sc_charge c
+			WHERE
+			c.outletId = cp.outletId
+			AND DATE_FORMAT( ChargeDate, '%Y-%m') BETWEEN #{payMonth} AND #{payMonth}
+		) as chargeTime,
+		sum(cp.Profits) Profits,
+		sum(cp.ChargeNum) ChargeNum,
+		sum(cp.PowerConsumption) PowerConsumption,
+		sum(cp.DistProfits) DistProfits
+		FROM
+		sc_chargeprofit cp
+		<where>
+			cp.outletId IN (
+			SELECT
+			outletId
+			FROM
+			sc_outlet
+			WHERE
+			ProviderId = #{providerId}
+			)
+			AND DATE_FORMAT( ChargeDate, '%Y-%m') BETWEEN #{payMonth} AND #{payMonth}
 		</where>
 		GROUP BY outletName, outletId
 	</select>

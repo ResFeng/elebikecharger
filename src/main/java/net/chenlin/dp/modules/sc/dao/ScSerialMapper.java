@@ -29,6 +29,6 @@ public interface ScSerialMapper extends BaseMapper<ScSerialEntity> {
      * @param query
      * @return
      */
-    Page<ScSerialEntity> listChargingSerial(Page<ScSerialEntity> page, Query query);
+    List<ScSerialEntity> listChargingSerial(Page<ScSerialEntity> page, Query query);
 	
 }

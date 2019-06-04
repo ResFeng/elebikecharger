@@ -32,6 +32,8 @@ public class ScSerialEntity implements Serializable {
 	 * 
 	 */
 	private Integer status;
+
+	private String qrcodeUrl;
 	
     /**
      * ScSerialEntity constructor
@@ -100,7 +102,15 @@ public class ScSerialEntity implements Serializable {
 		return status;
 	}
 
-    /**
+	public String getQrcodeUrl() {
+		return qrcodeUrl;
+	}
+
+	public void setQrcodeUrl(String qrcodeUrl) {
+		this.qrcodeUrl = qrcodeUrl;
+	}
+
+	/**
      * ScSerialEntity.toString()
      */
     @Override

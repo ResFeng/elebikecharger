@@ -37,4 +37,17 @@ public interface ScChargeprofitMapper extends BaseMapper<ScChargeprofitEntity> {
      * @return
      */
     List<ScChargeprofitEntity> getProfitReport(Page<ScChargeprofitEntity> page, Query query);
+    /**
+     * 按月份列出运营商收益
+     * @param page
+     * @param query
+     * @return
+     */
+    List<ScChargeprofitEntity> listMonthProfit(Page<ScChargeprofitEntity> page, Query query);
+    /**
+     * 列出要打印的详细
+     * @param params
+     * @return
+     */
+    List<ScChargeprofitEntity> listForDetail(Map<String, Object> params);
 }

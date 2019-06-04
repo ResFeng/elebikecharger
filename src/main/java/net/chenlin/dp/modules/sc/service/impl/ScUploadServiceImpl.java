@@ -1,5 +1,6 @@
 package net.chenlin.dp.modules.sc.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,16 @@ public class ScUploadServiceImpl implements ScUploadService {
 		Page<ScUploadEntity> page = new Page<>(query);
 		scUploadMapper.listForPage(page, query);
 		return page;
+	}
+
+	/**
+	 * 获取实时数据
+	 * @param params
+	 * @return
+	 */
+	@Override
+	public List<ScUploadEntity> getRealTimeData(Map<String, Object> params){
+		return scUploadMapper.getRealTimeData(params);
 	}
 
     /**

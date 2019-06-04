@@ -1,5 +1,6 @@
 package net.chenlin.dp.modules.sc.service;
 
+import java.util.List;
 import java.util.Map;
 
 import net.chenlin.dp.common.entity.Page;
@@ -18,6 +19,13 @@ public interface ScUploadService {
      * @return
      */
 	Page<ScUploadEntity> listScUpload(Map<String, Object> params);
+
+    /**
+     * 获取实时数据
+     * @param params
+     * @return
+     */
+    List<ScUploadEntity> getRealTimeData(Map<String, Object> params);
 
     /**
      * 新增

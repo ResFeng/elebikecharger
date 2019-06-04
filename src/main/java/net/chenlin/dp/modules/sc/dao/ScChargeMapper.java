@@ -1,7 +1,5 @@
 package net.chenlin.dp.modules.sc.dao;
 
-import net.chenlin.dp.common.entity.Page;
-import net.chenlin.dp.common.entity.Query;
 import org.apache.ibatis.annotations.Mapper;
 
 import net.chenlin.dp.modules.sc.entity.ScChargeEntity;

@@ -22,6 +22,54 @@
 		ORDER BY
 			UploadId DESC
 	</select>
+
+	<select id="getRealTimeData" resultType="net.chenlin.dp.modules.sc.entity.ScUploadEntity">
+		SELECT
+			`UploadId`,
+			`OutletId`,
+			`SerialId`,
+			`ChargeId`,
+			`UploadDate`,
+			`Votage`,
+			`Current`,
+			`Power`,
+			`ChargeTime`,
+			`RemainTime`,
+			`PriceMode`,
+			`RealCost`
+		FROM
+			sc_upload u
+		WHERE
+			chargeid =(
+				SELECT
+					chargeid
+				FROM
+					sc_charge c
+				WHERE
+					c.outletid = #{outletid}
+					AND
+					c.serialid = #{serialid}
+					AND
+					c.serialid = (
+						SELECT
+							serialid
+						FROM
+							sc_serial s
+						WHERE
+							s.outletid = #{outletid}
+						AND
+							s.serialid = #{serialid}
+						AND
+							status = 1
+					)
+				ORDER BY
+					c.ChargeDate DESC
+				LIMIT 1
+			)
+		ORDER BY
+			UploadDate DESC
+		LIMIT 1
+	</select>
 	
 	<insert id="save">
 		INSERT INTO sc_upload (

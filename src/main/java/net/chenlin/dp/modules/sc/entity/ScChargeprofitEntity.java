@@ -1,7 +1,6 @@
 package net.chenlin.dp.modules.sc.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import java.math.BigDecimal;
 
@@ -73,7 +72,11 @@ public class ScChargeprofitEntity implements Serializable {
 	 *
 	 */
 	private float chargeTime;
-	
+
+	private String chargeMonth;
+
+	private String payId;
+
     /**
      * ScChargeprofitEntity constructor
      */
@@ -224,6 +227,22 @@ public class ScChargeprofitEntity implements Serializable {
 
 	public void setSerialNum(int serialNum) {
 		this.serialNum = serialNum;
+	}
+
+	public String getChargeMonth() {
+		return chargeMonth;
+	}
+
+	public void setChargeMonth(String chargeMonth) {
+		this.chargeMonth = chargeMonth;
+	}
+
+	public String getPayId() {
+		return payId;
+	}
+
+	public void setPayId(String payId) {
+		this.payId = payId;
 	}
 
 	/**

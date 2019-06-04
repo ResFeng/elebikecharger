@@ -49,7 +49,7 @@
 			#{operator}, 
 			#{amount}, 
 			#{paymenttype}, 
-			#{openid}, 
+			#{openId},
 			#{accountname}, 
 			#{paymentamount}, 
 			#{paymentratio}, 
@@ -90,7 +90,7 @@
 			<if test="operator != null">`Operator` = #{operator}, </if>
 			<if test="amount != null">`Amount` = #{amount}, </if>
 			<if test="paymenttype != null">`PaymentType` = #{paymenttype}, </if>
-			<if test="openid != null">`OpenId` = #{openid}, </if>
+			<if test="openId != null">`OpenId` = #{openId}, </if>
 			<if test="accountname != null">`AccountName` = #{accountname}, </if>
 			<if test="paymentamount != null">`PaymentAmount` = #{paymentamount}, </if>
 			<if test="paymentratio != null">`PaymentRatio` = #{paymentratio}, </if>
