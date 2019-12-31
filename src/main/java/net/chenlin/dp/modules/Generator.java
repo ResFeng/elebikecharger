@@ -11,14 +11,14 @@ public class Generator {
     public static void main(String[] args) throws Exception {
 
         String jdbcDriver = "com.mysql.jdbc.Driver";
-        String jdbcUrl = "jdbc:mysql://127.0.0.1:3306/elebikerecharger?useUnicode=true&characterEncoding=utf-8";
+        String jdbcUrl = "jdbc:mysql://127.0.0.1:3306/yo_bung?useUnicode=true&characterEncoding=utf-8";
         String jdbcUsername = "root";
         String jdbcPassword = "ghjd506";
 
-        String tablePrefix = "sc_";
+        String tablePrefix = "";
 
-        String javaModule = "sc";
-        String webModule = "sc";
+        String javaModule = "yb";
+        String webModule = "yb";
 
         JdbcGenUtils.generatorCode(jdbcDriver, jdbcUrl, jdbcUsername, jdbcPassword, tablePrefix, javaModule, webModule);
 

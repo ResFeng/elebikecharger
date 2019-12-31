@@ -24,7 +24,7 @@ function getGrid() {
         columns: [
             {checkbox: true},
             // {field : "userid", title : "id", width : "100px"},
-            {field : "username", title : "用户名", width : "100px"},
+            // {field : "username", title : "用户名", width : "100px"},
             {field : "mobile", title : "手机号", width : "150px"},
             {field : "account", title : "账户余额", width : "100px"},
             {title : "操作", formatter : function(value, row, index) {
